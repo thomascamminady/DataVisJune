@@ -24,4 +24,6 @@ This will produce the following images for 2015, 2016 and 2017:
 
 
 
-Known problem: The naming convention in the Kaggle data set and geopands is different for some countries. Therefore some countries are missing in the plot.
+###Known problem
+
+The naming convention in the Kaggle data set and geopands is different for some countries. Therefore some countries are missing in the plot.
