@@ -2,13 +2,16 @@
 Visualizations for the Reddit DataViz Challenge June.
 Data from: https://www.kaggle.com/henosergoyan/happiness/data
 
+More visualizations can be found at: https://www.camminady.org
+
+### What to do?
 Either use the Jupyter Notebook or run
 
 ```shell
 python main.py
 ```
 
-This will produce the following images for 2015, 2016 and 2017:
+This will produce the following images for 2015, 2016 and 2017.
 
 ### 2015
 
