@@ -84,5 +84,5 @@ for year in [2015,2016,2017]:
         plt.close()
         
     # Combine the plots via montage. This could also be done with subplots I guess...
-    comm = "montage -density 100 -tile 3x3 -geometry +40+200 figs/*{}.png {}_overview.png".format(year,year)
+    comm = "montage -density 100 -tile 3x4 -geometry +40+200 figs/*{}.png {}_overview.png".format(year,year)
     os.system(comm)
