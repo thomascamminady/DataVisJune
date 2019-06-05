@@ -69,7 +69,7 @@ for year in [2015,2016,2017]:
         # Create figure and plot
         fig, ax = plt.subplots(1,1,figsize=(1920/50,1080/50))
         ax.axis('off')
-        cmap = "viridis_r" if item=="Happiness Rank" else "viridis"
+        cmap = "RdYlGn_r" if item=="Happiness Rank" else "RdYlGn"
         world.plot(column=item,cmap=cmap,ax=ax, legend=False)
         ax.set_title("{}".format(item),fontsize=100)
         
@@ -84,11 +84,11 @@ for year in [2015,2016,2017]:
         plt.close()
         
     # Combine the plots via montage. This could also be done with subplots I guess...
-    comm = "montage -density 100 -tile 3x4 -geometry +40+200 figs/*{}.png viridis_{}_overview.png".format(year,year)
+    comm = "montage -density 100 -tile 3x4 -geometry +40+200 figs/*{}.png RdYlGn_{}_overview.png".format(year,year)
     os.system(comm)
     
     
 for year in [2015,2016,2017]:
-    comm = """convert -font helvetica -fill black -pointsize 100 -draw "text 15,5900 'Happiness Report {}, Author: Thomas Camminady, Data Source: https://www.kaggle.com/henosergoyan/happiness/data'" viridis_{}_overview.png viridis_{}_overview.png""".format(year,year,year)    
+    comm = """convert -font helvetica -fill black -pointsize 100 -draw "text 15,5900 'Happiness Report {}, Author: Thomas Camminady, Data Source: https://www.kaggle.com/henosergoyan/happiness/data'" RdYlGn_{}_overview.png RdYlGn_{}_overview.png""".format(year,year,year)    
     print(comm)
     os.system(comm)
