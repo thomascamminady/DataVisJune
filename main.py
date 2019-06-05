@@ -86,3 +86,9 @@ for year in [2015,2016,2017]:
     # Combine the plots via montage. This could also be done with subplots I guess...
     comm = "montage -density 100 -tile 3x4 -geometry +40+200 figs/*{}.png {}_overview.png".format(year,year)
     os.system(comm)
+    
+    
+for year in [2015,2016,2017]:
+    comm = """convert -font helvetica -fill black -pointsize 100 -draw "text 15,5900 'Happiness Report {}, Author: Thomas Camminady, Data Source: https://www.kaggle.com/henosergoyan/happiness/data'" {}_overview.png {}_overview.png""".format(year,year,year)    
+    print(comm)
+    os.system(comm)
