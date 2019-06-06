@@ -44,17 +44,20 @@ new = ["Côte d'Ivoire",'Palestine','Bosnia and Herz.','Dem. Rep. Congo','Czechi
 for pos,o in enumerate(old):
     df.loc[df.name == o, "name" ] = new[pos]
 
-
-# This may take some seconds..
-
-
-# Create directory for figure output
-os.system("mkdir -p figs")
+colorscheme = "RdBu"
+shrinking = 1.00
+dpi = 100
 
 for year in [2015,2016,2017]:
+    counter = 0
+    fig, axs = plt.subplots(3,3,figsize=(3*shrinking*1920/50,3*shrinking*1080/50))
+    fig.suptitle('World Happiness Report {}'.format(year),fontsize=shrinking*200) # or plt.suptitle('Main title')
+    plt.text(0.2, 0.1, 'Author: Thomas Camminady, www.camminady.org         Data Source: https://www.kaggle.com/henosergoyan/happiness/data',fontsize=shrinking*70, transform=plt.gcf().transFigure)
     for item in ['Happiness Rank','Happiness Score','Economy (GDP per Capita)','Health (Life Expectancy)','Trust (Government Corruption)','Freedom',
             "Generosity",'Family','Dystopia Residual']:
-    
+      
+        ax = axs[counter//3, counter%3]
+        
         # Take world data from geopandas and merge with our data
         world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
         world = world[(world.name != "Antarctica") & (world.name != "Fr. S. Antarctic Lands")]
@@ -67,28 +70,21 @@ for year in [2015,2016,2017]:
         world.dropna(inplace=True)
         
         # Create figure and plot
-        fig, ax = plt.subplots(1,1,figsize=(1920/50,1080/50))
+        
         ax.axis('off')
-        cmap = "RdBu_r" if item=="Happiness Rank" else "RdBu"
+        cmap = "{}_r".format(colorscheme) if item=="Happiness Rank" else colorscheme
         world.plot(column=item,cmap=cmap,ax=ax, legend=False)
-        ax.set_title("{}".format(item),fontsize=100)
+        ax.set_title("{}".format(item),fontsize=shrinking*100)
         
         # Deal with colorbar    
         sm = plt.cm.ScalarMappable(cmap=cmap,norm=plt.Normalize(vmin=min(world[item]), vmax=max(world[item])))
         sm._A = []
-        cbar = fig.colorbar(sm,orientation="horizontal", pad=0,shrink=0.5)
-        cbar.ax.tick_params(labelsize=70)
-        
+        cbar = plt.colorbar(sm,orientation="horizontal", pad=0,shrink=0.5,ax=ax)
+        cbar.ax.tick_params(labelsize=shrinking*70)
+        counter +=1
+       
         # Save figure
-        plt.savefig("figs/{}_{}.png".format(item.replace(" ","_"),year),bbox_inches='tight',dpi=100)
-        plt.close()
+    plt.savefig("{}_overview.png".format(year),bbox_inches='tight',dpi=dpi)
+    plt.close()
         
-    # Combine the plots via montage. This could also be done with subplots I guess...
-    comm = "montage -density 100 -tile 3x4 -geometry +40+200 figs/*{}.png RdBu_{}_overview.png".format(year,year)
-    os.system(comm)
-    
-    
-for year in [2015,2016,2017]:
-    comm = """convert -font helvetica -fill black -pointsize 100 -draw "text 15,5900 'Happiness Report {}, Author: Thomas Camminady, Data Source: https://www.kaggle.com/henosergoyan/happiness/data'" RdBu_{}_overview.png RdBu_{}_overview.png""".format(year,year,year)    
-    print(comm)
-    os.system(comm)
+
