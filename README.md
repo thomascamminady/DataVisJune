@@ -7,10 +7,7 @@ More visualizations can be found at: https://www.camminady.org
 ### What to do?
 Either use the Google Colab Notebook: [![Click here](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/camminady/DataVisJune/blob/master/main_colab.ipynb)
 
-Or use the Jupyter Notebook locally or run
-```shell
-python main.py
-```
+Or use the Jupyter Notebook locally or run `python main.py`
 
 This will produce the following images for 2015, 2016 and 2017.
 
